@@ -54,7 +54,7 @@ std::expected<std::vector<uint8_t>, std::string> GetCodeSegment(const std::strin
 
         return sectionData;
     }
-    std::unexpected("Executable does not contain .text segment!");
+    return std::unexpected("Executable does not contain .text segment!");
 }
 
 std::vector<std::pair<std::string, std::function<std::optional<uintptr_t>(const std::vector<uint8_t>&)>>> payloads
@@ -97,7 +97,8 @@ int main(int argc, char* argv[])
     std::cout << "     ░░    ░   ▒     ░ ░      ░      ░   ░ ░ ░         ▒ ░  ░   ▒\n";
     std::cout << "      ░        ░  ░    ░  ░   ░  ░         ░ ░ ░       ░        ░  ░\n";
     std::cout << "     ░                                       ░\n";
-    std::cout << "                                                     Made by Orange\n";
+    std::cout << "                                                      Made by Orange\n";
+    std::cout << "<=========================DUMPED OFFSETS===========================>\n";
     const auto segment = GetCodeSegment(argv[1]);
 
     if (!segment.has_value())
@@ -122,7 +123,6 @@ int main(int argc, char* argv[])
             );
 
     threadPool.wait();
-    std::cout << "DUMPED OFFSETS";
     for (const auto& [name, offset] : offsets)
     {
         std::stringstream stream;
