@@ -59,9 +59,13 @@ std::expected<std::vector<uint8_t>, std::string> GetCodeSegment(const std::strin
 
 std::vector<std::pair<std::string, std::function<std::optional<uintptr_t>(const std::vector<uint8_t>&)>>> payloads
 {
-    {"LocalPlayer", GetLocalPlayerOffset},
-    {"EnityList", GetEntityListOffset},
-    {"ViewMatrix", GetViewMatrix},
+    {"r5apex.exe->LocalPlayer", GetLocalPlayerOffset},
+    {"r5apex.exe->EnityList", GetEntityListOffset},
+    {"r5apex.exe->ViewMatrix", GetViewMatrix},
+    {"r5apex.exe->NameList", GetNameListOffset},
+    {"r5apex.exe->clientState", GetClientStateOffset},
+    {"r5apex.exe->networkChannel", GetNetworkChannelOffset},
+
     {"entity->m_teamNumber", GetTeamNumberOffset},
     {"entity->m_health", GetHealthOffset},
     {"entity->m_shield", GetShieldOffset},
@@ -75,6 +79,9 @@ std::vector<std::pair<std::string, std::function<std::optional<uintptr_t>(const 
     {"entity->m_bleedOutState", GetBleedOutStateOffset},
     {"entity->m_lastPrimaryWeapons", GetLastPrimaryWeaponOffset},
     {"entity->m_healthMax", GetMaxHealthOffset},
+    {"entity->m_name", GetNameOffset},
+    {"entity->m_indexInNameList", GetNameListIndexOffset},
+
 
     {"weapon->m_bulletSpeedOffset", GetBulletSpeedOffset},
     {"weapon->m_bulletGravityScaleOffset", GetBulletScaleOffset},

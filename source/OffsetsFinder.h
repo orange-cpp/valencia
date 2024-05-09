@@ -4,6 +4,7 @@
 
 #pragma once
 #include "Signatures.h"
+#include "Signatures.h"
 
 
 inline std::vector<uint8_t> GetSignatureBytes(const std::string& str)
@@ -265,6 +266,7 @@ inline std::optional<uintptr_t> GetBulletSpeedOffset(const std::vector<uint8_t>&
 
     return localOffset;
 }
+
 [[nodiscard]]
 inline std::optional<uintptr_t> GetMaxHealthOffset(const std::vector<uint8_t>& segment)
 {
@@ -276,4 +278,64 @@ inline std::optional<uintptr_t> GetMaxHealthOffset(const std::vector<uint8_t>& s
     const auto localOffset = *reinterpret_cast<const uint32_t*>(&segment.at(index.value()+3));
 
     return localOffset;
+}
+[[nodiscard]]
+inline std::optional<uintptr_t> GetNameOffset(const std::vector<uint8_t>& segment)
+{
+    const auto index = PatternScan(segment, signatures::m_nameOffset);
+
+    if (!index)
+        return std::nullopt;
+
+    const auto localOffset = *reinterpret_cast<const uint32_t*>(&segment.at(index.value()+3));
+
+    return localOffset;
+}
+[[nodiscard]]
+inline std::optional<uintptr_t> GetNameListIndexOffset(const std::vector<uint8_t>& segment)
+{
+    const auto index = PatternScan(segment, signatures::m_indexInNameList);
+
+    if (!index)
+        return std::nullopt;
+
+    const auto localOffset = *reinterpret_cast<const uint32_t*>(&segment.at(index.value()+3));
+
+    return localOffset;
+}
+[[nodiscard]]
+inline std::optional<uintptr_t> GetNameListOffset(const std::vector<uint8_t>& segment)
+{
+    const auto index = PatternScan(segment, signatures::nameList);
+
+    if (!index)
+        return std::nullopt;
+
+    const auto localOffset = *reinterpret_cast<const uint32_t*>(&segment.at(index.value()+3));
+
+    return localOffset+0x1000+7+index.value();
+}
+[[nodiscard]]
+inline std::optional<uintptr_t> GetClientStateOffset(const std::vector<uint8_t>& segment)
+{
+    const auto index = PatternScan(segment, signatures::clientState);
+
+    if (!index)
+        return std::nullopt;
+
+    const auto localOffset = *reinterpret_cast<const uint32_t*>(&segment.at(index.value()+3));
+
+    return localOffset+0x1000+7+index.value();
+}
+[[nodiscard]]
+inline std::optional<uintptr_t> GetNetworkChannelOffset(const std::vector<uint8_t>& segment)
+{
+    const auto index = PatternScan(segment, signatures::networkChannel);
+
+    if (!index)
+        return std::nullopt;
+
+    const auto localOffset = *reinterpret_cast<const uint32_t*>(&segment.at(index.value()+3));
+
+    return localOffset+0x1000+7+index.value();
 }
