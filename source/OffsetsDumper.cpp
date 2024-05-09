@@ -66,7 +66,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::LocalPlayer);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+3));
@@ -79,7 +79,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::entityList);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+3));
@@ -91,7 +91,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::viewProjectionMatrix);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+3));
@@ -103,7 +103,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::m_iTeamNumber);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+2));
@@ -115,7 +115,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::m_iHealth);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+3));
@@ -127,7 +127,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::m_iShield);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+2));
@@ -139,7 +139,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::m_vecAbsVelocity);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+4));
@@ -151,7 +151,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::m_lastVisibleTime);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+6));
@@ -163,7 +163,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::m_vecOrigin);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+4));
@@ -175,7 +175,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::m_boneMatrix);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+2));
@@ -187,7 +187,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::m_cameraPos);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+3));
@@ -199,7 +199,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::m_viewAngles);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+4));
@@ -211,7 +211,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::m_bleedOutState);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+2));
@@ -223,7 +223,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::m_lifeState);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+2));
@@ -235,7 +235,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::m_latestPrimaryWeapons);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+3));
@@ -247,7 +247,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::m_fProjectileBulletScale);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+4));
@@ -259,7 +259,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::m_projectileBulletSpeed);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+4));
@@ -271,7 +271,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::m_maxHealth);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+3));
@@ -283,7 +283,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::m_nameOffset);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+3));
@@ -295,7 +295,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::m_indexInNameList);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+3));
@@ -307,7 +307,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::nameList);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+3));
@@ -319,7 +319,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::clientState);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+3));
@@ -331,7 +331,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::networkChannel);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+3));
@@ -343,7 +343,7 @@ namespace valencia
     {
         const auto index = PatternScan(signatures::latestOffHandWeapons);
 
-        if (!index)
+        if (!index) [[unlikely]]
             return std::nullopt;
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+5));
