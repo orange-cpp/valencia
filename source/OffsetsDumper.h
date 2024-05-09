@@ -98,6 +98,9 @@ namespace valencia
         [[nodiscard]]
         std::optional<uintptr_t> GetNetworkChannelOffset() const;
 
+        [[nodiscard]]
+        std::optional<uintptr_t> GetLastesOffHandWeapons() const;
+
 
         [[nodiscard]]
         static std::vector<uint8_t> GetSignatureBytes(const std::string& str);

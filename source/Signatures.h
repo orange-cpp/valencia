@@ -32,4 +32,5 @@ namespace signatures
     const std::string nameList = "48 8D 05 ? ? ? ? 48 8B 54 D0 ? E8 ? ? ? ? C6 45 4F 00 F3 45 0F 10 86";
     const std::string clientState = "48 8D 0D ? ? ? ? E8 ? ? ? ? F3 0F 58 C1 F3 0F 11 42";
     const std::string networkChannel = "48 8B 0D ? ? ? ? 48 8D 54 24 ? 45 33 C9 C6 84 24 ? ? ? ? ? 45 33 C0";
+    const std::string latestOffHandWeapons = "48 0F BE 94 07 ? ? ? ? 80 FA FF";
 }

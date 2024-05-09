@@ -44,6 +44,7 @@ namespace valencia
             {"entity->m_bLifeState", [this] {return GetLifeStateOffset();}},
             {"entity->m_bBleedOutState", [this] {return GetBleedOutStateOffset();}},
             {"entity->m_iLastPrimaryWeapons", [this] {return GetLastPrimaryWeaponOffset();}},
+            {"entity->m_iLastOffHandWeapon", [this] {return GetLastesOffHandWeapons();}},
             {"entity->m_iHealthMax", [this] {return GetMaxHealthOffset();}},
             {"entity->m_sName", [this] {return GetNameOffset();}},
             {"entity->m_iIndexInNameList", [this] {return GetNameListIndexOffset();}},
@@ -336,6 +337,18 @@ namespace valencia
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+3));
 
         return localOffset+0x1000+7+index.value();
+    }
+
+    std::optional<uintptr_t> OffsetsDumper::GetLastesOffHandWeapons() const
+    {
+        const auto index = PatternScan(signatures::latestOffHandWeapons);
+
+        if (!index)
+            return std::nullopt;
+
+        const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+5));
+
+        return localOffset;
     }
 
     std::vector<uint8_t> OffsetsDumper::GetSignatureBytes(const std::string &str)
