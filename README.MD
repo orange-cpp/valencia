@@ -20,7 +20,7 @@ Navigate to the cloned repository directory: `cd valencia`
 Configure the build environment. You can specify Debug or Release mode. Here is how you can set up for a release build:
 `cmake --preset linux-release -S .`
 
-Now, compile the project: `cmake --build cmake-build/build/linux-release --target server -j 6`
+Now, compile the project: `cmake --build cmake-build/build/linux-release --target valencia -j 6`
 This command builds the project using 6 parallel jobs, which should speed up the compilation process.
 
 ## Usage
