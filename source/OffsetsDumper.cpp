@@ -5,6 +5,8 @@
 #include "OffsetsDumper.h"
 #include "Signatures.h"
 
+constexpr std::ptrdiff_t textSegentOffset = 0x1000;
+
 
 namespace valencia
 {
@@ -84,7 +86,7 @@ namespace valencia
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+3));
 
-        return 0x1000+localOffset+index.value()+7;
+        return textSegentOffset+localOffset+index.value()+7;
     }
 
     std::optional<uintptr_t> OffsetsDumper::GetViewMatrix() const
@@ -96,7 +98,7 @@ namespace valencia
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+3));
 
-        return 0x1000+localOffset+index.value()+7+0x10;
+        return textSegentOffset+localOffset+index.value()+7+0x10;
     }
 
     std::optional<uintptr_t> OffsetsDumper::GetTeamNumberOffset() const
