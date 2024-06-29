@@ -156,7 +156,7 @@ namespace valencia
         if (!index) [[unlikely]]
             return std::nullopt;
 
-        const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+6));
+        const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+5));
 
         return localOffset;
     }

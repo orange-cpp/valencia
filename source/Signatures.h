@@ -16,7 +16,7 @@ namespace signatures
     const std::string m_iHealth = "44 8B 83 ? ? ? ? 45 85 C0 44 0F 48 C7 41 8B D0 2B 93 ? ? ? ? 85 D2";
     const std::string m_iShield = "39 87 ? ? ? ? 0F 84 ? ? ? ? 48 8B 07 48 8B CF FF 90 ? ? ? ? 44 8B 97";
     const std::string m_vecAbsVelocity = "F3 0F 10 9F ? ? ? ? F3 0F 10 97 ? ? ? ? F3 0F 59 DB";
-    const std::string m_lastVisibleTime = " F3 42 0F 10 84 91 ? ? ? ? 0F 2F C6 77 6A";
+    const std::string m_lastVisibleTime = "F3 41 0F 10 81 ? ? ? ? 66 3B 77 4E 0F 83 ? ? ? ? 4C 8B 57 30 45 0F B7 62 ? 66 45 85 E4 0F 84";
     const std::string m_vecOrigin = "F3 0F 7E 97";
     const std::string m_boneMatrix = "89 81 ? ? ? ? C3 CC 48 89 6C 24"; // + 0x44
     const std::string m_cameraPos = "0F 2E 89 ? ? ? ? 7A 58";
