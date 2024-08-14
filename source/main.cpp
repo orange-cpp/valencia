@@ -6,6 +6,8 @@
 #include <vector>
 #include "PortableExecutableHeaders.h"
 #include "OffsetsDumper.h"
+#include <nfd.h>
+#include "gui/gui.h"
 
 namespace valencia
 {
@@ -91,6 +93,10 @@ namespace valencia
 }
 int main(int argc, char* argv[])
 {
+
+    SimpleGuiApp app;
+
+    app.Run();
     if (argc < 2)
     {
         std::cout << "Usage: " << argv[0] << " /path/to/r5apex.exe\n";
