@@ -13,6 +13,13 @@ if (WIN32)
 elseif (APPLE)
     target_sources(nativefiledialog PRIVATE nativefiledialog/src/nfd_cocoa.m)
 elseif (UNIX)
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(GTK REQUIRED gtk+-3.0)
+
+    include_directories(${GTK_INCLUDE_DIRS})
+    link_directories(${GTK_LIBRARY_DIRS})
+
+    target_link_libraries(nativefiledialog PRIVATE ${GTK_LIBRARIES})
     target_sources(nativefiledialog PRIVATE nativefiledialog/src/nfd_gtk.c)
 endif ()
 
