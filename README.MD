@@ -1,4 +1,9 @@
 # Valencia
+![GitHub License](https://img.shields.io/github/license/orange-cpp/valencia)
+![GitHub contributors](https://img.shields.io/github/contributors/orange-cpp/valencia)
+![GitHub top language](https://img.shields.io/github/languages/top/orange-cpp/valencia)
+![GitHub forks](https://img.shields.io/github/forks/orange-cpp/valencia)
+
 Valencia is a utility designed to extract offsets from Apex Legends by performing signature scans. This tool is useful for developers interested in game modification and reverse engineering.
 
 ## Getting Started
