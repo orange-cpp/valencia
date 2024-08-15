@@ -32,4 +32,4 @@ After running, Valencia will output the scanned offsets, which can be used for f
 # Screenshot
 Below is a screenshot of Valencia in action:
 
-![img.png](https://i.imgur.com/gzAkrqo.png)
+![img.png](https://i.imgur.com/XDrPDnq.png)
