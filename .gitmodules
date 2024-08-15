@@ -1,3 +1,12 @@
 [submodule "extlibs/asio"]
 	path = extlibs/asio
 	url = https://github.com/chriskohlhoff/asio.git
+[submodule "extlibs/nativefiledialog"]
+	path = extlibs/nativefiledialog
+	url = https://github.com/mlabbe/nativefiledialog
+[submodule "extlibs/glfw"]
+	path = extlibs/glfw
+	url = https://github.com/glfw/glfw.git
+[submodule "extlibs/imgui"]
+	path = extlibs/imgui
+	url = https://github.com/ocornut/imgui.git
