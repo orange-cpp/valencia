@@ -5,24 +5,26 @@
 #pragma once
 #include <iostream>
 #include <GLFW/glfw3.h>
-#include <imgui.h>
-#include <imgui_impl_glfw.h>
-#include <imgui_impl_opengl3.h>
+#include <optional>
 
-// Simple class to encapsulate the GUI app
-class SimpleGuiApp {
-public:
-    SimpleGuiApp();
-    ~SimpleGuiApp();
-    void Run();
 
-private:
-    void Init();
-    void MainLoop();
-    void Cleanup();
+namespace valencia::gui
+{
+    class Menu
+    {
+    public:
+        Menu();
+        ~Menu();
+        void Run();
 
-    GLFWwindow* window;
-    const char* glsl_version = "#version 130";
-    const int window_width = 1280;
-    const int window_height = 720;
-};
+    private:
+        void Init();
+        void MainLoop();
+        void Cleanup() const;
+
+        GLFWwindow* window{};
+        const char* glsl_version = "#version 130";
+
+        std::optional<std::string> m_pathToApex;
+    };
+}
