@@ -101,6 +101,8 @@ namespace valencia
         [[nodiscard]]
         std::optional<uintptr_t> GetLastesOffHandWeapons() const;
 
+        [[nodiscard]]
+        std::optional<uintptr_t> GetObserverList() const;
 
         [[nodiscard]]
         static std::vector<uint8_t> GetSignatureBytes(const std::string& str);
