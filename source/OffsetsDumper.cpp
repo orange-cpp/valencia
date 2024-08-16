@@ -25,6 +25,7 @@ namespace valencia
             {"r5apex.exe->NameList", [this] {return GetNameListOffset();}},
             {"r5apex.exe->clientState", [this] {return GetClientStateOffset();}},
             {"r5apex.exe->networkChannel", [this] {return GetNetworkChannelOffset();}},
+            {"r5apex.exe->observerList", [this] {return GetObserverList();}},
         };
 
         return AsyncFindOffsets(payloads);
@@ -351,6 +352,18 @@ namespace valencia
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+5));
 
         return localOffset;
+    }
+
+    std::optional<uintptr_t> OffsetsDumper::GetObserverList() const
+    {
+        const auto index = PatternScan(signatures::observerList);
+
+        if (!index) [[unlikely]]
+            return std::nullopt;
+
+        const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+3));
+
+        return localOffset+0x1000+7+index.value();
     }
 
     std::vector<uint8_t> OffsetsDumper::GetSignatureBytes(const std::string &str)
