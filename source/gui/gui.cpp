@@ -145,9 +145,9 @@ namespace valencia::gui
                 }
                 ImGui::TextColored(m_pathToApex ? ImColor(0, 255, 0) : ImColor(255, 0, 0), std::format("Path: {}", m_pathToApex.value_or("NONE")).c_str());
 
+                constexpr auto floatMin = std::numeric_limits<float>::min();
                 ImGui::InputTextMultiline("##textview", offsets.data(), offsets.size(),
-                                          ImVec2(-FLT_MIN, -FLT_MIN),
-                                          ImGuiInputTextFlags_ReadOnly);
+                                          {-floatMin, -floatMin}, ImGuiInputTextFlags_ReadOnly);
                 ImGui::End();
             }
 
