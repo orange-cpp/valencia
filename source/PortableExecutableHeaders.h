@@ -5,7 +5,6 @@
 #pragma once
 #include <cstdint>
 
-#pragma pack(push, 1)
 namespace valencia
 {
     // Structure definitions for PE headers without using windows.h
@@ -98,6 +97,4 @@ namespace valencia
         uint16_t NumberOfLinenumbers;
         uint32_t Characteristics;
     };
-
-#pragma pack(pop)
 }

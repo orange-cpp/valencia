@@ -6,11 +6,12 @@
 #include <iostream>
 #include <GLFW/glfw3.h>
 #include <optional>
+#include <functional>
 
 
 namespace valencia::gui
 {
-    class Menu
+    class Menu final
     {
     public:
         Menu();
@@ -20,10 +21,8 @@ namespace valencia::gui
     private:
         void Init();
         void MainLoop();
-        void Cleanup() const;
 
-        GLFWwindow* window{};
-        const char* glsl_version = "#version 130";
+        std::unique_ptr<GLFWwindow, std::function<void(GLFWwindow*)>> window{nullptr, [](auto p) {glfwDestroyWindow(p);}};
 
         std::optional<std::string> m_pathToApex;
     };

@@ -9,4 +9,6 @@ int main()
     valencia::gui::Menu app;
 
     app.Run();
+
+    return 0;
 }

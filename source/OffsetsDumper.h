@@ -105,14 +105,15 @@ namespace valencia
         std::optional<uintptr_t> GetObserverList() const;
 
         [[nodiscard]]
-        static std::vector<uint8_t> GetSignatureBytes(const std::string& str);
+        static std::vector<uint8_t> GetSignatureBytes(const std::string_view& str);
 
         [[nodiscard]]
-        std::optional<size_t> PatternScan(const std::string &pattern) const;
+        std::optional<size_t> PatternScan(const std::string_view &pattern) const;
 
         std::vector<uint8_t> m_codeSegment;
-        asio::thread_pool m_threadPool = {std::thread::hardware_concurrency()};
-        asio::executor_work_guard<asio::thread_pool::executor_type> m_guard = asio::make_work_guard(m_threadPool.get_executor());
+        asio::thread_pool m_threadPool;
+        asio::executor_work_guard<asio::thread_pool::executor_type> m_guard;
+
         [[nodiscard]]
         std::unordered_map<std::string, std::optional<uintptr_t>>
         AsyncFindOffsets(const std::vector<std::pair<std::string, std::function<std::optional<uintptr_t>()>>>& arr);
