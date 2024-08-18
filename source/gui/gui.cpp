@@ -24,7 +24,7 @@
 
 namespace valencia::gui
 {
-    [[nodiscard]]std::expected<std::vector<uint8_t>, std::string> GetCodeSegment(const std::string& filePath)
+    [[nodiscard]] std::expected<std::vector<uint8_t>, std::string> GetCodeSegment(const std::string& filePath)
     {
         std::ifstream file(filePath, std::ios::binary);
 
@@ -89,40 +89,8 @@ namespace valencia::gui
         return ss.str();
     }
 
-    void Menu::Init() {
-        if (!glfwInit())
-        {
-            std::cerr << "Failed to initialize GLFW" << std::endl;
-            exit(EXIT_FAILURE);
-        }
-
-        glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, true);
-        glfwWindowHint(GLFW_RESIZABLE, false);
-
-        window = glfwCreateWindow(300, 500, "Valencia - by Orange", nullptr, nullptr);
-        if (!window)
-        {
-            std::cerr << "Failed to create GLFW window" << std::endl;
-            glfwTerminate();
-            exit(EXIT_FAILURE);
-        }
-
-        glfwMakeContextCurrent(window);
-        glfwSwapInterval(1); // Enable vsync
-
-        // Set up ImGui context
-        IMGUI_CHECKVERSION();
-        ImGui::CreateContext();
-        ImGuiIO& io = ImGui::GetIO(); (void)io;
-        ImGui::StyleColorsDark();
-
-        // Set up Platform/Renderer bindings
-        ImGui_ImplGlfw_InitForOpenGL(window, true);
-        ImGui_ImplOpenGL3_Init(glsl_version);
-    }
-
     void Menu::MainLoop() {
-        while (!glfwWindowShouldClose(window)) {
+        while (!glfwWindowShouldClose(window.get())) {
             const auto startRenderTime = std::chrono::high_resolution_clock::now();
             glfwPollEvents();
 
@@ -141,9 +109,8 @@ namespace valencia::gui
                 if (ImGui::Button("Select Exe"))
                 {
                     nfdchar_t *outPath = nullptr;
-                    nfdresult_t result = NFD_OpenDialog( "exe", nullptr, &outPath );
 
-                    if (result == NFD_OKAY)
+                    if (const auto result = NFD_OpenDialog( "exe", nullptr, &outPath ); result == NFD_OKAY)
                         m_pathToApex = std::string(outPath);
                 }
 
@@ -188,45 +155,74 @@ namespace valencia::gui
 
             int display_w, display_h;
 
-            glfwGetFramebufferSize(window, &display_w, &display_h);
+            glfwGetFramebufferSize(window.get(), &display_w, &display_h);
+
             glViewport(0, 0, display_w, display_h);
             glClearColor(0.f, 0.f, 0.f, 0.f);
             glClear(GL_COLOR_BUFFER_BIT);
+
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-            glfwSwapBuffers(window);
+            glfwSwapBuffers(window.get());
             const auto endRenderTime = std::chrono::high_resolution_clock::now();
 
             const auto deltaMilliSeconds = std::chrono::duration_cast<std::chrono::microseconds>(endRenderTime-startRenderTime).count() / 1000.f;
 
-            const int sleepTime = static_cast<size_t>(1000.f / 35.f - deltaMilliSeconds);
-            // Locking fps at 45
+            const auto sleepTime = static_cast<size_t>(1000.f / 35.f - deltaMilliSeconds);
+
+
             if (sleepTime > 0)
                 std::this_thread::sleep_for(std::chrono::milliseconds(sleepTime));
         }
     }
-    // Constructor: Initialize the app
-    Menu::Menu() {
-        Init();
+
+    Menu::Menu()
+    {
+        if (!glfwInit())
+        {
+            std::cerr << "Failed to initialize GLFW" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+
+        glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, true);
+        glfwWindowHint(GLFW_RESIZABLE, false);
+
+        window.reset(glfwCreateWindow(300, 500, "Valencia - by Orange", nullptr, nullptr));
+
+        if (!window)
+        {
+            std::cerr << "Failed to create GLFW window" << std::endl;
+            glfwTerminate();
+            exit(EXIT_FAILURE);
+        }
+
+        glfwMakeContextCurrent(window.get());
+        glfwSwapInterval(1);
+
+
+        IMGUI_CHECKVERSION();
+        ImGui::CreateContext();
+        const ImGuiIO& io = ImGui::GetIO(); (void)io;
+        ImGui::StyleColorsDark();
+
+
+        ImGui_ImplGlfw_InitForOpenGL(window.get(), true);
+        ImGui_ImplOpenGL3_Init("#version 130");
     }
 
-    // Destructor: Clean up resources
-    Menu::~Menu() {
-        Cleanup();
-    }
-    // Cleanup resources
-    void Menu::Cleanup() const
+
+    Menu::~Menu()
     {
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplGlfw_Shutdown();
         ImGui::DestroyContext();
 
-        glfwDestroyWindow(window);
         glfwTerminate();
     }
 
-    // Run the app
-    void Menu::Run() {
+
+    void Menu::Run()
+    {
         MainLoop();
     }
 }

@@ -10,7 +10,9 @@ constexpr std::ptrdiff_t textSegentOffset = 0x1000;
 
 namespace valencia
 {
-    OffsetsDumper::OffsetsDumper(std::vector<uint8_t> segment)
+    OffsetsDumper::OffsetsDumper(std::vector<uint8_t> segment) :
+    m_threadPool(std::thread::hardware_concurrency()),
+    m_guard(asio::make_work_guard(m_threadPool.get_executor()))
     {
         m_codeSegment = std::move(segment);
     }
@@ -75,7 +77,7 @@ namespace valencia
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+3));
 
 
-        return 0x1000+localOffset+index.value()+7+8;
+        return textSegentOffset+localOffset+index.value()+7+8;
     }
 
     std::optional<uintptr_t> OffsetsDumper::GetEntityListOffset() const
@@ -315,7 +317,7 @@ namespace valencia
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+3));
 
-        return localOffset+0x1000+7+index.value();
+        return localOffset+textSegentOffset+7+index.value();
     }
 
     std::optional<uintptr_t> OffsetsDumper::GetClientStateOffset() const
@@ -327,7 +329,7 @@ namespace valencia
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+3));
 
-        return localOffset+0x1000+7+index.value();
+        return localOffset+textSegentOffset+7+index.value();
     }
 
     std::optional<uintptr_t> OffsetsDumper::GetNetworkChannelOffset() const
@@ -339,7 +341,7 @@ namespace valencia
 
         const auto localOffset = *reinterpret_cast<const uint32_t*>(&m_codeSegment.at(index.value()+3));
 
-        return localOffset+0x1000+7+index.value();
+        return localOffset+textSegentOffset+7+index.value();
     }
 
     std::optional<uintptr_t> OffsetsDumper::GetLastesOffHandWeapons() const
@@ -366,7 +368,7 @@ namespace valencia
         return localOffset+0x1000+7+index.value();
     }
 
-    std::vector<uint8_t> OffsetsDumper::GetSignatureBytes(const std::string &str)
+    std::vector<uint8_t> OffsetsDumper::GetSignatureBytes(const std::string_view &str)
     {
         std::vector<uint8_t> bytes;
         for (size_t i = 0; i < str.size();)
@@ -382,13 +384,13 @@ namespace valencia
                 i+1 < str.size() and str[i+1] == '?' ? i += 2 : i++;
                 continue;
             }
-            bytes.push_back(std::stoi(str.substr(i,2), nullptr,16));
+            bytes.push_back(std::stoi(str.substr(i,2).data(), nullptr,16));
             i += 2;
         }
         return bytes;
     }
 
-    std::optional<size_t> OffsetsDumper::PatternScan(const std::string &pattern) const
+    std::optional<size_t> OffsetsDumper::PatternScan(const std::string_view &pattern) const
     {
         const auto patternBytes = GetSignatureBytes(pattern);
 
