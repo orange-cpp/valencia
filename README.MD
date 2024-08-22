@@ -1,6 +1,6 @@
 <div align = center>
 
-![banner](https://i.imgur.com/IipBCE9.png)
+![banner](https://i.imgur.com/9bScFPq.png)
 
 ![GitHub License](https://img.shields.io/github/license/orange-cpp/valencia)
 ![GitHub contributors](https://img.shields.io/github/contributors/orange-cpp/valencia)
