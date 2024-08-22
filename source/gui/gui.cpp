@@ -21,11 +21,17 @@
 #include "PortableExecutableHeaders.h"
 #include "OffsetsDumper.h"
 
+#ifdef USE_CODE_VIRTUALIZER
+#   include <CodeVirtualizer/VirtualizerSDK.h>
+#endif
 
 namespace valencia::gui
 {
     [[nodiscard]] std::expected<std::vector<uint8_t>, std::string> GetCodeSegment(const std::string& filePath)
     {
+#ifdef USE_CODE_VIRTUALIZER
+        VIRTUALIZER_FALCON_TINY_START;
+#endif
         std::ifstream file(filePath, std::ios::binary);
 
         if (!file.is_open()) [[unlikely]]
@@ -66,6 +72,10 @@ namespace valencia::gui
 
             return sectionData;
         }
+
+#ifdef USE_CODE_VIRTUALIZER
+        VIRTUALIZER_FALCON_TINY_END;
+#endif
         return std::unexpected("Executable does not contain .text segment!");
     }
 
@@ -90,6 +100,9 @@ namespace valencia::gui
     }
 
     void Menu::MainLoop() {
+#ifdef USE_CODE_VIRTUALIZER
+        VIRTUALIZER_FALCON_TINY_START;
+#endif
         while (!glfwWindowShouldClose(window.get())) {
             const auto startRenderTime = std::chrono::high_resolution_clock::now();
             glfwPollEvents();
@@ -174,10 +187,16 @@ namespace valencia::gui
             if (sleepTime > 0)
                 std::this_thread::sleep_for(std::chrono::milliseconds(sleepTime));
         }
+#ifdef USE_CODE_VIRTUALIZER
+        VIRTUALIZER_FALCON_TINY_END;
+#endif
     }
 
     Menu::Menu()
     {
+#ifdef USE_CODE_VIRTUALIZER
+        VIRTUALIZER_FALCON_TINY_START;
+#endif
         if (!glfwInit())
         {
             std::cerr << "Failed to initialize GLFW" << std::endl;
@@ -208,6 +227,9 @@ namespace valencia::gui
 
         ImGui_ImplGlfw_InitForOpenGL(window.get(), true);
         ImGui_ImplOpenGL3_Init("#version 130");
+#ifdef USE_CODE_VIRTUALIZER
+        VIRTUALIZER_FALCON_TINY_END;
+#endif
     }
 
 

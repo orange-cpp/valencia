@@ -5,11 +5,16 @@
 #include "OffsetsDumper.h"
 #include "Signatures.h"
 
+#ifdef USE_CODE_VIRTUALIZER
+#   include <CodeVirtualizer/VirtualizerSDK.h>
+#endif
+
 constexpr std::ptrdiff_t textSegentOffset = 0x1000;
 
 
 namespace valencia
 {
+
     OffsetsDumper::OffsetsDumper(std::vector<uint8_t> segment) :
     m_threadPool(std::thread::hardware_concurrency()),
     m_guard(asio::make_work_guard(m_threadPool.get_executor()))
@@ -370,6 +375,9 @@ namespace valencia
 
     std::vector<uint8_t> OffsetsDumper::GetSignatureBytes(const std::string_view &str)
     {
+#ifdef USE_CODE_VIRTUALIZER
+        VIRTUALIZER_FALCON_TINY_START;
+#endif
         std::vector<uint8_t> bytes;
         for (size_t i = 0; i < str.size();)
         {
@@ -387,6 +395,9 @@ namespace valencia
             bytes.push_back(std::stoi(str.substr(i,2).data(), nullptr,16));
             i += 2;
         }
+#ifdef USE_CODE_VIRTUALIZER
+        VIRTUALIZER_FALCON_TINY_END;
+#endif
         return bytes;
     }
 
@@ -412,6 +423,9 @@ namespace valencia
     OffsetsDumper::AsyncFindOffsets(
         const std::vector<std::pair<std::string, std::function<std::optional<uintptr_t>()>>>& arr)
     {
+#ifdef USE_CODE_VIRTUALIZER
+        VIRTUALIZER_FALCON_TINY_START;
+#endif
         std::unordered_map<std::string, std::optional<uintptr_t>> offsets;
 
         std::mutex mapMutex;
@@ -439,6 +453,10 @@ namespace valencia
         }
         std::unique_lock lock(finishedMutex);
         cv.wait(lock);
+
+#ifdef USE_CODE_VIRTUALIZER
+        VIRTUALIZER_FALCON_TINY_END;
+#endif
         return offsets;
     }
 }

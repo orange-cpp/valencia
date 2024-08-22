@@ -10,3 +10,6 @@
 [submodule "extlibs/imgui"]
 	path = extlibs/imgui
 	url = https://github.com/ocornut/imgui.git
+[submodule "extlibs/code-virtualizer-sdk"]
+	path = extlibs/code-virtualizer-sdk
+	url = https://github.com/orange-cpp/code-virtualizer-sdk

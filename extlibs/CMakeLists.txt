@@ -3,6 +3,7 @@ target_compile_definitions(asio INTERFACE ASIO_STANDALONE)
 target_include_directories(asio INTERFACE asio/asio/include)
 
 add_subdirectory(glfw)
+add_subdirectory(code-virtualizer-sdk)
 
 project(nativefiledialog)
 

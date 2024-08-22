@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.26)
 
+option(USE_CODE_VIRTUALIZER "Use code virtualizer for protection" ON)
+
 project(valencia LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 26)
@@ -11,7 +13,7 @@ else ()
     add_executable(valencia source/main.cpp)
 endif ()
 
-target_link_libraries(valencia PRIVATE asio nativefiledialog glfw imgui)
+target_link_libraries(valencia PRIVATE asio nativefiledialog glfw imgui cv-sdk)
 
 if (UNIX)
     find_package(OpenGL REQUIRED)
@@ -22,3 +24,9 @@ endif ()
 target_include_directories(valencia PRIVATE source)
 add_subdirectory(extlibs)
 add_subdirectory(source)
+
+
+if (USE_CODE_VIRTUALIZER)
+    target_compile_definitions(valencia PRIVATE USE_CODE_VIRTUALIZER)
+    target_link_libraries(valencia PRIVATE cv-sdk)
+endif ()
