@@ -11,6 +11,8 @@
 
 Valencia is a utility designed to extract offsets from Apex Legends by performing signature scans. This tool is useful for developers interested in game modification and reverse engineering.
 
+## ⚠️WARNING
+Support of this dumper was ended due of Denuvo protection that do not allow static binary analysis
 
 ## Getting Started
 These instructions will guide you on how to set up and run Valencia on your local machine for development and testing purposes.
