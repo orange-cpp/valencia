@@ -19,7 +19,6 @@ namespace valencia::gui
         void Run();
 
     private:
-        void Init();
         void MainLoop();
 
         std::unique_ptr<GLFWwindow, std::function<void(GLFWwindow*)>> window{nullptr, [](auto p) {glfwDestroyWindow(p);}};
